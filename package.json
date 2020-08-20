@@ -1,0 +1,29 @@
+{
+  "name": "fuzzle",
+  "version": "0.0.1",
+  "author": "Rob McLarty <hello@robmclarty.com> (https://robmclarty.com)",
+  "description": "CLI for static asset revisioning and reference updating.",
+  "homepage": "https://github.com/robmclarty/fuzzle#readme",
+  "bin": {
+    "fuzzle": "./bin/fuzzle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robmclarty/fuzzle.git"
+  },
+  "keywords": [
+    "static",
+    "assets",
+    "rev"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-rev": "^9.0.0",
+    "gulp-rev-rewrite": "^3.0.3",
+    "minimist": "^1.2.5"
+  }
+}
