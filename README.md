@@ -26,6 +26,13 @@ like JS, CSS, HTML, images, fonts, etc.
 
 Defaults to `./build`.
 
+### `--rm`
+
+Indicate whether (or not) you would like the original asset files (the non-rev'd
+versions without the hash in the filename) to be removed.
+
+Defaults to `true`. If you don't want the originals removed pass `--rm false`.
+
 ## Commands
 
 ### `rev`
