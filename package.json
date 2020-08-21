@@ -1,6 +1,6 @@
 {
   "name": "fuzzle",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Rob McLarty <hello@robmclarty.com> (https://robmclarty.com)",
   "description": "CLI for static asset revisioning and reference updating.",
   "homepage": "https://github.com/robmclarty/fuzzle#readme",
