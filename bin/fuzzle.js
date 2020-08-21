@@ -11,15 +11,14 @@ const TARGET_ARG = 'dir'
 const REMOVE_ARG = 'rm'
 const DEFAULT_BUILD_FOLDER = './build'
 const DEFAULT_SHOULD_REMOVE_ORIGINALS = true
-const DEFAULT_MANIFEST_ASSETS_NAME = 'rev-manifest-assets.json'
-const DEFAULT_MANIFEST_JS_NAME = 'rev-manifest-js.json'
-const DEFAULT_MANIFEST_CSS_NAME = 'rev-manifest-css.json'
+const DEFAULT_MANIFEST_FILENAME = 'rev-manifest.json'
 
 const revAssets = argv => {
   const targetPath = argv[TARGET_ARG] || DEFAULT_BUILD_FOLDER
   const shouldRemoveOriginals = argv[REMOVE_ARG] || DEFAULT_SHOULD_REMOVE_ORIGINALS
-  const manifestAssetsPath = `${targetPath}/${DEFAULT_MANIFEST_ASSETS_NAME}`
+  const mainfestPath = `${targetPath}/${DEFAULT_MANIFEST_FILENAME}`
 
+  // TODO: add flag to ignore some files from being rev'd
   return gulp.src([
     `${targetPath}/**/*`,
     '!**/*.js',
@@ -29,50 +28,59 @@ const revAssets = argv => {
     .pipe(rev())
     .pipe(gulpif(shouldRemoveOriginals, revDel()))
     .pipe(gulp.dest(targetPath))
-    .pipe(rev.manifest(manifestAssetsPath))
+    .pipe(rev.manifest({
+      path: mainfestPath,
+      merge: true
+    }))
     .pipe(gulp.dest('.'))
 }
 
 const revJS = argv => {
   const targetPath = argv[TARGET_ARG] || DEFAULT_BUILD_FOLDER
   const shouldRemoveOriginals = argv[REMOVE_ARG] || DEFAULT_SHOULD_REMOVE_ORIGINALS
-  const manifestAssetsPath = `${targetPath}/${DEFAULT_MANIFEST_ASSETS_NAME}`
-  const manifestJSPath = `${targetPath}/${DEFAULT_MANIFEST_JS_NAME}`
+  const mainfestPath = `${targetPath}/${DEFAULT_MANIFEST_FILENAME}`
 
   return gulp.src(`${targetPath}/**/*.js`)
-    .pipe(revRewrite({ manifest: gulp.src(manifestAssetsPath) }))
+    .pipe(revRewrite({
+      manifest: gulp.src(mainfestPath)
+    }))
     .pipe(rev())
     .pipe(gulpif(shouldRemoveOriginals, revDel()))
     .pipe(gulp.dest(targetPath))
-    .pipe(rev.manifest(manifestJSPath))
+    .pipe(rev.manifest({
+      path: mainfestPath,
+      merge: true
+    }))
     .pipe(gulp.dest('.'))
 }
 
 const revCSS = argv => {
   const targetPath = argv[TARGET_ARG] || DEFAULT_BUILD_FOLDER
   const shouldRemoveOriginals = argv[REMOVE_ARG] || DEFAULT_SHOULD_REMOVE_ORIGINALS
-  const manifestAssetsPath = `${targetPath}/${DEFAULT_MANIFEST_ASSETS_NAME}`
-  const manifestCSSPath = `${targetPath}/${DEFAULT_MANIFEST_CSS_NAME}`
+  const mainfestPath = `${targetPath}/${DEFAULT_MANIFEST_FILENAME}`
 
   return gulp.src(`${targetPath}/**/*.css`)
-    .pipe(revRewrite({ manifest: gulp.src(manifestAssetsPath) }))
+    .pipe(revRewrite({
+      manifest: gulp.src(mainfestPath)
+    }))
     .pipe(rev())
     .pipe(gulpif(shouldRemoveOriginals, revDel()))
     .pipe(gulp.dest(targetPath))
-    .pipe(rev.manifest(manifestCSSPath))
+    .pipe(rev.manifest({
+      path: mainfestPath,
+      merge: true
+    }))
     .pipe(gulp.dest('.'))
 }
 
 const revHTML = argv => {
   const targetPath = argv[TARGET_ARG] || DEFAULT_BUILD_FOLDER
-  const manifestAssetsPath = `${targetPath}/${DEFAULT_MANIFEST_ASSETS_NAME}`
-  const manifestJSPath = `${targetPath}/${DEFAULT_MANIFEST_JS_NAME}`
-  const manifestCSSPath = `${targetPath}/${DEFAULT_MANIFEST_CSS_NAME}`
+  const mainfestPath = `${targetPath}/${DEFAULT_MANIFEST_FILENAME}`
 
   return gulp.src(`${targetPath}/**/*.html`)
-    .pipe(revRewrite({ manifest: gulp.src(manifestAssetsPath) }))
-    .pipe(revRewrite({ manifest: gulp.src(manifestCSSPath) }))
-    .pipe(revRewrite({ manifest: gulp.src(manifestJSPath) }))
+    .pipe(revRewrite({
+      manifest: gulp.src(mainfestPath)
+    }))
     .pipe(gulp.dest(targetPath))
 }
 
