@@ -37,11 +37,11 @@ Defaults to `true`. If you don't want the originals removed pass `--rm false`.
 
 ### `rev`
 
-Probably what you'll want to use most of the time, runs all the following
-commands in sequence so that first, all rev'd files have been created, it will
+Probably what you'll want to use most of the time: runs all the following
+commands in sequence so that after all rev'd files have been created, it will
 go through each of JS, CSS, and HTML files and update any file references that
-correspond to the rev'd files. It does this by creating manifest files which
-map the regular filename to the rev'd filename, replacing references of the one
+correspond to the rev'd files. It does this by creating a manifest file which
+maps the regular filename to the rev'd filename, replacing references of the one
 to the other.
 
 ### `rev:assets`
@@ -60,8 +60,8 @@ within them to any other rev'd static assets (but not JS or HTML).
 
 ### `rev:html`
 
-Revs all HTML files in the target directory and updates any references contained
-within them to any other rev'd static assets (including JS + CSS).
+Updates any references contained within all HTML fiels to any other rev'd static
+assets (including JS + CSS).
 
 ## License
 
