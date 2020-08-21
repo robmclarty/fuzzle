@@ -22,7 +22,9 @@
   "license": "MIT",
   "dependencies": {
     "gulp": "^4.0.2",
+    "gulp-if": "^3.0.0",
     "gulp-rev": "^9.0.0",
+    "gulp-rev-delete-original": "^0.2.3",
     "gulp-rev-rewrite": "^3.0.3",
     "minimist": "^1.2.5"
   }
