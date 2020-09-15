@@ -23,7 +23,8 @@ const revAssets = argv => {
     `${targetPath}/**/*`,
     '!**/*.js',
     '!**/*.css',
-    '!**/*.html'
+    '!**/*.html',
+    `!${DEFAULT_MANIFEST_FILENAME}`
   ])
     .pipe(rev())
     .pipe(gulpif(shouldRemoveOriginals, revDel()))
