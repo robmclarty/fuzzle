@@ -8,60 +8,55 @@ CLI for static asset revisioning and reference updating (e.g., creates a copy of
 Inspects `.js`, `.css`, and `.html` files and will update all references to
 any renamed static assets to the corresponding hashed filenames.
 
+
 ## Install
 
 `$ npm install fuzzle --save-dev`
+
 
 ## Usage
 
 `$ npx fuzzle rev --dir ./my-static-assets`
 
+
 ## Options
 
 ### `--dir`
 
-The folder containing all the static assets you want to rev. This would usually
-be a build target folder that contains all your processed/transpiled assets
-like JS, CSS, HTML, images, fonts, etc.
+The folder containing all the static assets you want to revision. This would
+usually be a build target folder that contains all your processed/transpiled
+assets like JS, CSS, HTML, images, fonts, etc.
 
 Defaults to `./build`.
 
-### `--rm`
+### `--clean`
 
-Indicate whether (or not) you would like the original asset files (the non-rev'd
-versions without the hash in the filename) to be removed.
+Indicate whether (or not) you would like the original asset files (the
+non-revisioned versions without the hash in the filename) to be removed.
 
-Defaults to `true`. If you don't want the originals removed pass `--rm false`.
+Defaults to `true`.
+
+If you don't want the originals removed pass `--clean false`.
 
 ## Commands
 
 ### `rev`
 
-Probably what you'll want to use most of the time: runs all the following
-commands in sequence so that after all rev'd files have been created, it will
-go through each of JS, CSS, and HTML files and update any file references that
-correspond to the rev'd files. It does this by creating a manifest file which
-maps the regular filename to the rev'd filename, replacing references of the one
-to the other.
+Probably what you'll want to use most of the time: revisions all asset files and
+rewrites their references in any html, js, and css files.
 
-### `rev:assets`
+It does this by creating a manifest file which maps the regular filename to the
+revisioned filenames, replacing references of the one to the other.
 
-Revs all files which are not JS, CSS, or HTML in the target directory.
+### `revision`
 
-### `rev:js`
+Revisions all files. Ignores any `.html` files, `favicon.ico`, and `site.webmanifest`.
 
-Revs all JS files in the target directory and updates any references contained
-within them to any other rev'd static assets (but not CSS or HTML).
+### `rewrite`
 
-### `rev:css`
+Updates all references in any html, js, or css files to files in the manifest
+file.
 
-Revs all CSS files in the target directory and updates any references contained
-within them to any other rev'd static assets (but not JS or HTML).
-
-### `rev:html`
-
-Updates any references contained within all HTML fiels to any other rev'd static
-assets (including JS + CSS).
 
 ## License
 
