@@ -2,6 +2,7 @@
 
 const gulp = require('gulp')
 const gulpif = require('gulp-if')
+const del = require('del')
 const rev = require('gulp-rev')
 const revRewrite = require('gulp-rev-rewrite')
 const revDel = require('gulp-rev-delete-original')
@@ -50,17 +51,26 @@ const rewrite = argv => {
     .pipe(gulp.dest(targetPath))
 }
 
-const revAndRewrite = argv => {
+const removeManifest = argv => {
+  const targetPath = argv[TARGET_ARG] || DEFAULT_BUILD_FOLDER
+  const manifestPath = `${targetPath}/${MANIFEST_FILENAME}`
+
+  return del(manifestPath)
+}
+
+const all = argv => {
   return gulp.series(
     () => revision(argv),
-    () => rewrite(argv)
+    () => rewrite(argv),
+    () => removeManifest(argv)
   )()
 }
 
 const tasks = {
-  'rev': revAndRewrite,
+  'rev': all,
   'revision': revision,
-  'rewrite': rewrite
+  'rewrite': rewrite,
+  'removeManifest': removeManifest
 }
 
 const action = argv._[0]

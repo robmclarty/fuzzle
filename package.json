@@ -21,6 +21,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "del": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-if": "^3.0.0",
     "gulp-rev": "^9.0.0",
