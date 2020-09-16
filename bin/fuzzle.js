@@ -42,15 +42,15 @@ const revJS = argv => {
   const mainfestPath = `${targetPath}/${DEFAULT_MANIFEST_FILENAME}`
 
   return gulp.src(`${targetPath}/**/*.js`)
-    .pipe(revRewrite({
-      manifest: gulp.src(mainfestPath)
-    }))
     .pipe(rev())
     .pipe(gulpif(shouldRemoveOriginals, revDel()))
     .pipe(gulp.dest(targetPath))
     .pipe(rev.manifest({
       path: mainfestPath,
       merge: true
+    }))
+    .pipe(revRewrite({
+      manifest: gulp.src(mainfestPath)
     }))
     .pipe(gulp.dest('.'))
 }
@@ -61,15 +61,15 @@ const revCSS = argv => {
   const mainfestPath = `${targetPath}/${DEFAULT_MANIFEST_FILENAME}`
 
   return gulp.src(`${targetPath}/**/*.css`)
-    .pipe(revRewrite({
-      manifest: gulp.src(mainfestPath)
-    }))
     .pipe(rev())
     .pipe(gulpif(shouldRemoveOriginals, revDel()))
     .pipe(gulp.dest(targetPath))
     .pipe(rev.manifest({
       path: mainfestPath,
       merge: true
+    }))
+    .pipe(revRewrite({
+      manifest: gulp.src(mainfestPath)
     }))
     .pipe(gulp.dest('.'))
 }
@@ -88,10 +88,8 @@ const revHTML = argv => {
 const revAll = argv => {
   return gulp.series(
     () => revAssets(argv),
-    gulp.parallel(
-      () => revJS(argv),
-      () => revCSS(argv)
-    ),
+    () => revJS(argv),
+    () => revCSS(argv),
     () => revHTML(argv)
   )()
 }
