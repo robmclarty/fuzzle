@@ -41,8 +41,12 @@ const rewrite = argv => {
   const manifestPath = `${targetPath}/${MANIFEST_FILENAME}`
   const manifest = gulp.src(manifestPath)
 
-  return gulp.src(`${targetPath}/index.html`)
-    .pipe(revRewrite({ manifest }))
+  return gulp.src([
+    `${targetPath}/**/*.{html,js,css}`
+  ])
+    .pipe(revRewrite({
+      manifest
+    }))
     .pipe(gulp.dest(targetPath))
 }
 
